@@ -1,0 +1,7 @@
+PageObject\RegistrationPage.class
+Resources\TestData.class
+PageObject\AccountPage.class
+PageObject\LoginPage.class
+PageObject\PasswordRecoveryPage.class
+Resources\HTTPClient.class
+PageObject\MainPage.class
