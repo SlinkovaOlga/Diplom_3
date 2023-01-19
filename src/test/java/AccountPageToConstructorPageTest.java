@@ -1,5 +1,5 @@
-import Resources.*;
-import PageObject.*;
+import resources.*;
+import pageobject.*;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;

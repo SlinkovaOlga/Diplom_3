@@ -1,6 +1,6 @@
-package PageObject;
+package pageobject;
 
-import Resources.TestData;
+import resources.TestData;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ElementsCollection;
 import io.qameta.allure.Step;

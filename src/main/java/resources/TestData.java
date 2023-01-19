@@ -1,4 +1,4 @@
-package Resources;
+package resources;
 
 import java.util.Random;
 
@@ -39,4 +39,6 @@ public class TestData {
     public void setTestPassword(String testPassword) {
         this.testPassword = testPassword;
     }
+
+
 }

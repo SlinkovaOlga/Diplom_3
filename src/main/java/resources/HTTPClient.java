@@ -1,4 +1,4 @@
-package Resources;
+package resources;
 
 import io.qameta.allure.Step;
 import io.restassured.path.json.JsonPath;
@@ -28,14 +28,10 @@ public class HTTPClient {
                 .delete(baseURL + deleteUserAPIMethod).then().assertThat().statusCode(202);
     }
 
-    @Step("Create test user")
+   @Step("Create test user")
     public void doCreateUserRequest() {
-        given().header("Content-type", JSON).and().body(String.format("{\n" +
-                                "\"email\": \"%s\",\n" +
-                                "\"password\": \"%s\",\n" +
-                                "\"name\": \"%s\"\n" +
-                                "}\n",
-                        testData.getTestEmail(), testData.getTestPassword(), testData.getTestName()))
+        PojoUser user = new PojoUser(testData.getTestEmail(), testData.getTestPassword(), testData.getTestName());
+        given().header("Content-type", JSON).and().body(user)
                 .when().post(baseURL + registrationAPIMethod);
     }
 }

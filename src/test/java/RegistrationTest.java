@@ -1,9 +1,9 @@
-import PageObject.AccountPage;
-import PageObject.LoginPage;
-import PageObject.MainPage;
-import PageObject.RegistrationPage;
-import Resources.HTTPClient;
-import Resources.TestData;
+import pageobject.AccountPage;
+import pageobject.LoginPage;
+import pageobject.MainPage;
+import pageobject.RegistrationPage;
+import resources.HTTPClient;
+import resources.TestData;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.junit4.DisplayName;
 import jdk.jfr.Description;
