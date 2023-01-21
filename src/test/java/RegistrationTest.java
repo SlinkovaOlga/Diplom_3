@@ -6,10 +6,10 @@ import resources.HTTPClient;
 import resources.TestData;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.junit4.DisplayName;
-import jdk.jfr.Description;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.Description;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.Assert.assertEquals;

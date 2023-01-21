@@ -2,11 +2,13 @@ import resources.*;
 import pageobject.*;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.junit4.DisplayName;
-import jdk.jfr.Description;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import io.qameta.allure.Description;
+
+import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
@@ -46,10 +48,11 @@ public class BurgerConstructorTest {
     @DisplayName("Тест перехода по вкладкам конструктора бургера")
     @Description("Проверка, что нажатие клавиш-вкладок в списке ингредиентов приводит к переходу в соответствующий " +
             "раздел списка ингредиентов")
-    public void isBurgerConstructorTubsLeadToIngredientSectionsTest() {
+    public void isBurgerConstructorTubsLeadToIngredientSectionsTest() throws InterruptedException {
         if (ingredientNumber == 0) {
             mainPage.doIngredientTabClick(1);
             mainPage.isIngredientCategoriesHeaderVisible(1);
+            TimeUnit.SECONDS.sleep(1);
         }
         mainPage.doIngredientTabClick(ingredientNumber);
         boolean expected = true;

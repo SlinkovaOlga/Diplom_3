@@ -12,6 +12,11 @@ public class PojoUser {
         this.name = name;
     }
 
+    public PojoUser(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     // конструктор без параметров
     public PojoUser() {
     }

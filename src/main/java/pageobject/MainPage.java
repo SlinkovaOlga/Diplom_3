@@ -7,8 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 
 public class MainPage {
 
@@ -24,6 +25,13 @@ public class MainPage {
     private ElementsCollection ingredientTabs;
     @FindBy(how = How.XPATH, using = "(//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']/h2)")
     private ElementsCollection ingredientCategoriesHeaders;
+
+    @FindBy(how = How.XPATH, using = "//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']//span[text()='Булки']")
+    private SelenideElement ingredientCategoriesHeader1Active;
+    @FindBy(how = How.XPATH, using = "//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']//span[text()='Соусы']")
+    private SelenideElement ingredientCategoriesHeader2Active;
+    @FindBy(how = How.XPATH, using = "//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']//span[text()='Начинки']")
+    private SelenideElement ingredientCategoriesHeader3Active;
 
     @Step("Дождаться видимости клавиши 'Личный кабинет'")
     public MainPage isAccountButtonVisible() {
@@ -66,8 +74,15 @@ public class MainPage {
     }
 
     @Step("Проверить видимость клавиши переключателей категорий ингредиентов")
-    public boolean isIngredientCategoriesHeaderVisible(int categoryNumber) {
-        return ingredientCategoriesHeaders.get(categoryNumber)
-                .shouldBe(visible, Duration.ofSeconds(10)).is(visible);
+    public boolean isIngredientCategoriesHeaderVisible(int categoryNumber) throws InterruptedException {
+        if (categoryNumber == 0) {
+            return ingredientCategoriesHeader1Active.shouldBe(visible, Duration.ofSeconds(3)).is(visible);
+        } else if (categoryNumber == 1) {
+            return ingredientCategoriesHeader2Active.shouldBe(visible, Duration.ofSeconds(3)).is(visible);
+        } else if (categoryNumber == 2) {
+            return ingredientCategoriesHeader3Active.shouldBe(visible, Duration.ofSeconds(3)).is(visible);
+        } else {
+            return false;
+        }
     }
 }

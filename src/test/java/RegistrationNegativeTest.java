@@ -1,10 +1,11 @@
+import org.junit.After;
 import resources.*;
 import pageobject.*;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.junit4.DisplayName;
-import jdk.jfr.Description;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.Description;
 
 
 import static com.codeborne.selenide.Selenide.open;
@@ -19,6 +20,7 @@ public class RegistrationNegativeTest {
     RegistrationPage registrationPage;
     AccountPage accountPage;
     String fiveCharacterPassword = "12345";
+    private String new_email;
 
     @Before
     public void initializationData() {
@@ -40,8 +42,9 @@ public class RegistrationNegativeTest {
         testData.setTestPassword(fiveCharacterPassword);
         mainPage.doAccountButtonClick();
         loginPage.doRegistrationLinkClick();
+        new_email = testData.getTestEmail();
         registrationPage.doFillRegistrationFields(0, testData.getTestName())
-                .doFillRegistrationFields(1, testData.getTestEmail())
+                .doFillRegistrationFields(1, new_email)
                 .doFillRegistrationFields(2, testData.getTestPassword())
                 .doRegistrationButtonClick();
         boolean expected = true;
@@ -49,6 +52,14 @@ public class RegistrationNegativeTest {
         assertEquals(expected, actual);
     }
 
+    @After
+    public void deleteData() {
+        try {
+            httpClient.doDeleteUserRequestForNegativeTest(new_email);
+        } catch (Exception exception) {
+            System.out.println("Нет пользователя на удаление!");
+        }
+    }
 }
 
 

@@ -19,20 +19,54 @@ public class HTTPClient {
 
     @Step("Delete test user")
     public void doDeleteUserRequest() {
-        String body = String.format("{%n\"email\": \"%s\",%n\"password\": \"%s\"%n}", testData.getTestEmail(), testData.getTestPassword());
-        String requestBody = given().header("Content-type", JSON).and().body(body)
-                .when().post(baseURL + userLoginAPIMethod).getBody().asString();
+        PojoUser user = new PojoUser(testData.getTestEmail(), testData.getTestPassword());
+        String requestBody = given()
+                .header("Content-type", JSON)
+                .and()
+                .body(user)
+                .when()
+                .post(baseURL + userLoginAPIMethod).getBody().asString();
         JsonPath jp = new JsonPath(requestBody);
         String token = jp.getString("accessToken").split(" ")[1];
-        given().auth().oauth2(token).header("Content-type", JSON).when()
-                .delete(baseURL + deleteUserAPIMethod).then().assertThat().statusCode(202);
+        given()
+                .auth()
+                .oauth2(token)
+                .header("Content-type", JSON)
+                .when()
+                .delete(baseURL + deleteUserAPIMethod)
+                .then()
+                .assertThat().statusCode(202);
     }
 
-   @Step("Create test user")
+    @Step("Delete test user for negative test")
+    public void doDeleteUserRequestForNegativeTest(String email) {
+        PojoUser user = new PojoUser(email, testData.getTestPassword());
+        String requestBody = given()
+                .header("Content-type", JSON)
+                .and()
+                .body(user)
+                .when()
+                .post(baseURL + userLoginAPIMethod).getBody().asString();
+        JsonPath jp = new JsonPath(requestBody);
+        String token = jp.getString("accessToken").split(" ")[1];
+        given()
+                .auth()
+                .oauth2(token)
+                .header("Content-type", JSON)
+                .when()
+                .delete(baseURL + deleteUserAPIMethod)
+                .then()
+                .assertThat().statusCode(202);
+    }
+
+    @Step("Create test user")
     public void doCreateUserRequest() {
         PojoUser user = new PojoUser(testData.getTestEmail(), testData.getTestPassword(), testData.getTestName());
-        given().header("Content-type", JSON).and().body(user)
-                .when().post(baseURL + registrationAPIMethod);
+        given().header("Content-type", JSON)
+                .and()
+                .body(user)
+                .when()
+                .post(baseURL + registrationAPIMethod);
     }
 }
 
