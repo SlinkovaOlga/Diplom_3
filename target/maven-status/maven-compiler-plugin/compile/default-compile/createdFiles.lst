@@ -1,0 +1,8 @@
+resources\HTTPClient.class
+resources\TestData.class
+pageobject\RegistrationPage.class
+pageobject\AccountPage.class
+pageobject\MainPage.class
+pageobject\LoginPage.class
+pageobject\PasswordRecoveryPage.class
+resources\PojoUser.class
